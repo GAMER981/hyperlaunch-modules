@@ -162,6 +162,11 @@ superGB := IniReadCheck(settingsFile, systemName . "|" . romName, "SuperGameBoy"
 enableNetworkPlay := IniReadCheck(settingsFile, "Network|" . romName, "Enable_Network_Play","false",,1)
 overlay := IniReadCheck(settingsFile, systemName . "|" . romName, "Overlay",,,1)
 videoShader := IniReadCheck(settingsFile, systemName . "|" . romName, "VideoShader",,,1)
+aspectRatioIndex := IniReadCheck(settingsFile, systemName . "|" . romName, "AspectRatioIndex",,,1)
+customViewportWidth := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportWidth",,,1)
+customViewportHeight := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportHeight",,,1)
+customViewportX := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportX",,,1)
+customViewportY := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportY",,,1)
 
 messRomPath := GetFullName(messRomPath)
 libRetroFolder := GetFullName(libRetroFolder)
@@ -215,8 +220,20 @@ If !libDll
 
 
 retroCFG := LoadProperties(retroCFGFile)	; load the config into memory
+If overlay
 WriteProperty(retroCFG, "input_overlay", """" . overlay . """", 1)
+If videoShader
 WriteProperty(retroCFG, "video_shader", """" . videoShader . """", 1)
+If aspectRatioIndex
+WriteProperty(retroCFG, "aspect_ratio_index", """" . aspectRatioIndex . """", 1)
+If customViewportWidth
+WriteProperty(retroCFG, "custom_viewport_width", """" . customViewportWidth . """", 1)
+If customViewportHeight
+WriteProperty(retroCFG, "custom_viewport_height", """" . customViewportHeight . """", 1)
+If customViewportX
+WriteProperty(retroCFG, "custom_viewport_x", """" . customViewportX . """", 1)
+If customViewportY
+WriteProperty(retroCFG, "custom_viewport_y", """" . customViewportY . """", 1)
 SaveProperties(retroCFGFile, retroCFG)	
 
 If RegExMatch(ident, "LibRetro_NFDS|LibRetro_SCD|LibRetro_TGCD|LibRetro_PCECD|LibRetro_PCFX") {		; these systems require the retroarch settings to be read

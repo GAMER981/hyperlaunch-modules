@@ -467,6 +467,51 @@
 							</FILEEXTENSIONS>
 							<DESCRIPTION>Set this to the Retroarch video shader you would like to use with this system.</DESCRIPTION>
 						</KEY>
+						<KEY name="AspectRatioIndex" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the aspect ratio you would like to use for this system.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="4:3">0</VALUE>
+								<VALUE description="16:9">1</VALUE>
+								<VALUE description="16:10">2</VALUE>
+								<VALUE description="16:15">3</VALUE>
+								<VALUE description="1:1">4</VALUE>
+								<VALUE description="2:1">5</VALUE>
+								<VALUE description="3:2">6</VALUE>
+								<VALUE description="3:4">7</VALUE>
+								<VALUE description="4:1">8</VALUE>
+								<VALUE description="4:4">9</VALUE>
+								<VALUE description="5:4">10</VALUE>
+								<VALUE description="6:5">11</VALUE>
+								<VALUE description="7:9">12</VALUE>
+								<VALUE description="8:3">13</VALUE>
+								<VALUE description="8:7">14</VALUE>
+								<VALUE description="19:12">15</VALUE>
+								<VALUE description="19:14">16</VALUE>
+								<VALUE description="30:17">17</VALUE>
+								<VALUE description="32:9">18</VALUE>
+								<VALUE description="Config">19</VALUE>
+								<VALUE description="4:3 (1:1 PAR)">20</VALUE>
+								<VALUE description="Core Provided">21</VALUE>
+								<VALUE description="Custom">22</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="CustomViewportWidth" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the width you would like the viewport to be for this system.</DESCRIPTION>
+						</KEY>
+						<KEY name="CustomViewportHeight" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the height you would like the viewport to be for this system.</DESCRIPTION>
+						</KEY>
+						<KEY name="CustomViewportX" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the x coordinate you would like the viewport to be located for this system.</DESCRIPTION>
+						</KEY>
+						<KEY name="CustomViewportY" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the y coordinate you would like the viewport to be located for this system.</DESCRIPTION>
+						</KEY>
 					</KEYS>
 				</SECTION>
 				<SECTION name="%RomName%" required="false">
@@ -481,14 +526,59 @@
 							<FILEEXTENSIONS>
 								<FILEEXTENSION>cfg</FILEEXTENSION>
 							</FILEEXTENSIONS>
-							<DESCRIPTION>Set this to the Retroarch overlay you would like to use with this system.</DESCRIPTION>
+							<DESCRIPTION>Set this to the Retroarch overlay you would like to use with this rom.</DESCRIPTION>
 						</KEY>
 						<KEY name="VideoShader" required="false" nullable="false">
 							<KEYTYPE>FilePath</KEYTYPE>
 							<FILEEXTENSIONS>
 								<FILEEXTENSION>cgp</FILEEXTENSION>
 							</FILEEXTENSIONS>
-							<DESCRIPTION>Set this to the Retroarch video shader you would like to use with this system.</DESCRIPTION>
+							<DESCRIPTION>Set this to the Retroarch video shader you would like to use with this rom.</DESCRIPTION>
+						</KEY>
+						<KEY name="AspectRatioIndex" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the aspect ratio you would like to use for this system.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="4:3">0</VALUE>
+								<VALUE description="16:9">1</VALUE>
+								<VALUE description="16:10">2</VALUE>
+								<VALUE description="16:15">3</VALUE>
+								<VALUE description="1:1">4</VALUE>
+								<VALUE description="2:1">5</VALUE>
+								<VALUE description="3:2">6</VALUE>
+								<VALUE description="3:4">7</VALUE>
+								<VALUE description="4:1">8</VALUE>
+								<VALUE description="4:4">9</VALUE>
+								<VALUE description="5:4">10</VALUE>
+								<VALUE description="6:5">11</VALUE>
+								<VALUE description="7:9">12</VALUE>
+								<VALUE description="8:3">13</VALUE>
+								<VALUE description="8:7">14</VALUE>
+								<VALUE description="19:12">15</VALUE>
+								<VALUE description="19:14">16</VALUE>
+								<VALUE description="30:17">17</VALUE>
+								<VALUE description="32:9">18</VALUE>
+								<VALUE description="Config">19</VALUE>
+								<VALUE description="4:3 (1:1 PAR)">20</VALUE>
+								<VALUE description="Core Provided">21</VALUE>
+								<VALUE description="Custom">22</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="CustomViewportWidth" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the width you would like the viewport to be for this rom.</DESCRIPTION>
+						</KEY>
+						<KEY name="CustomViewportHeight" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the height you would like the viewport to be for this rom.</DESCRIPTION>
+						</KEY>
+						<KEY name="CustomViewportX" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the x coordinate you would like the viewport to be located for this rom.</DESCRIPTION>
+						</KEY>
+						<KEY name="CustomViewportY" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set this to the y coordinate you would like the viewport to be located for this rom.</DESCRIPTION>
 						</KEY>
 					</KEYS>
 				</SECTION>
