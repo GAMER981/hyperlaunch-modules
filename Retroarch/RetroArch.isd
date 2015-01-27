@@ -512,30 +512,76 @@
 							<KEYTYPE>String</KEYTYPE>
 							<DESCRIPTION>Set this to the y coordinate you would like the viewport to be located for this system.</DESCRIPTION>
 						</KEY>
+						<KEY name="IntegerScale" required="false" nullable="false">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to use integer scaling for this system.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="VSync" required="false" nullable="false">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to use vsync for this system.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="ThreadedVideo" required="false" nullable="false">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to use threaded video for this system.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="CropOverscan" required="false" nullable="false">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to crop overscan for this system.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="Rotation" required="false" nullable="false">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set to the rotation you would like to use for this system.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="Normal">0</VALUE>
+								<VALUE description="90 deg">1</VALUE>
+								<VALUE description="180 deg">2</VALUE>
+								<VALUE description="270 deg">3</VALUE>
+							</VALUES>
+						</KEY>
 					</KEYS>
 				</SECTION>
 				<SECTION name="%RomName%" required="false">
 					<SECTIONTYPE>Rom</SECTIONTYPE>
+					<GROUPS>
+						<GROUP name="General"/>
+						<GROUP name="VideoOptions"/>
+					</GROUPS>
 					<KEYS>
 						<KEY name="SuperGameBoy" required="false" nullable="false">
 							<KEYTYPE>Boolean</KEYTYPE>
 							<DESCRIPTION>Set this to true if this game should enable Super Game Boy mode in RetroArch. Make sure the rom "Super Game Boy (World).sfc" is located in the bios folder in your emuPath.</DESCRIPTION>
 						</KEY>
-						<KEY name="Overlay" required="false" nullable="false">
+						<KEY name="Overlay" required="false" nullable="false" group="VideoOptions">
 							<KEYTYPE>FilePath</KEYTYPE>
 							<FILEEXTENSIONS>
 								<FILEEXTENSION>cfg</FILEEXTENSION>
 							</FILEEXTENSIONS>
 							<DESCRIPTION>Set this to the Retroarch overlay you would like to use with this rom.</DESCRIPTION>
 						</KEY>
-						<KEY name="VideoShader" required="false" nullable="false">
+						<KEY name="VideoShader" required="false" nullable="false" group="VideoOptions">
 							<KEYTYPE>FilePath</KEYTYPE>
 							<FILEEXTENSIONS>
 								<FILEEXTENSION>cgp</FILEEXTENSION>
 							</FILEEXTENSIONS>
 							<DESCRIPTION>Set this to the Retroarch video shader you would like to use with this rom.</DESCRIPTION>
 						</KEY>
-						<KEY name="AspectRatioIndex" required="false" nullable="false">
+						<KEY name="AspectRatioIndex" required="false" nullable="false" group="VideoOptions">
 							<KEYTYPE>String</KEYTYPE>
 							<DESCRIPTION>Set this to the aspect ratio you would like to use for this system.</DESCRIPTION>
 							<VALUES>
@@ -564,21 +610,63 @@
 								<VALUE description="Custom">22</VALUE>
 							</VALUES>
 						</KEY>
-						<KEY name="CustomViewportWidth" required="false" nullable="false">
+						<KEY name="CustomViewportWidth" required="false" nullable="false" group="VideoOptions">
 							<KEYTYPE>String</KEYTYPE>
 							<DESCRIPTION>Set this to the width you would like the viewport to be for this rom.</DESCRIPTION>
 						</KEY>
-						<KEY name="CustomViewportHeight" required="false" nullable="false">
+						<KEY name="CustomViewportHeight" required="false" nullable="false" group="VideoOptions">
 							<KEYTYPE>String</KEYTYPE>
 							<DESCRIPTION>Set this to the height you would like the viewport to be for this rom.</DESCRIPTION>
 						</KEY>
-						<KEY name="CustomViewportX" required="false" nullable="false">
+						<KEY name="CustomViewportX" required="false" nullable="false" group="VideoOptions">
 							<KEYTYPE>String</KEYTYPE>
 							<DESCRIPTION>Set this to the x coordinate you would like the viewport to be located for this rom.</DESCRIPTION>
 						</KEY>
-						<KEY name="CustomViewportY" required="false" nullable="false">
+						<KEY name="CustomViewportY" required="false" nullable="false" group="VideoOptions">
 							<KEYTYPE>String</KEYTYPE>
 							<DESCRIPTION>Set this to the y coordinate you would like the viewport to be located for this rom.</DESCRIPTION>
+						</KEY>
+						<KEY name="IntegerScale" required="false" nullable="false" group="VideoOptions">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to use integer scaling for this rom.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="VSync" required="false" nullable="false" group="VideoOptions">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to use vsync for this rom.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="ThreadedVideo" required="false" nullable="false" group="VideoOptions">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to use threaded video for this rom.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="CropOverscan" required="false" nullable="false" group="VideoOptions">
+							<KEYTYPE>Boolean</KEYTYPE>
+							<DESCRIPTION>Set to true to crop overscan for this rom.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="true">true</VALUE>
+								<VALUE description="false">false</VALUE>
+							</VALUES>
+						</KEY>
+						<KEY name="Rotation" required="false" nullable="false" group="VideoOptions">
+							<KEYTYPE>String</KEYTYPE>
+							<DESCRIPTION>Set to the rotation you would like to use for this rom.</DESCRIPTION>
+							<VALUES>
+								<VALUE description="Normal">0</VALUE>
+								<VALUE description="90 deg">1</VALUE>
+								<VALUE description="180 deg">2</VALUE>
+								<VALUE description="270 deg">3</VALUE>
+							</VALUES>
 						</KEY>
 					</KEYS>
 				</SECTION>

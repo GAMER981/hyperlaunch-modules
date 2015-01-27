@@ -168,8 +168,9 @@ customViewportHeight := IniReadCheck(settingsFile, systemName . "|" . romName, "
 customViewportX := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportX",,,1)
 customViewportY := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportY",,,1)
 
+
 messRomPath := GetFullName(messRomPath)
-libRetroFolder := GetFullName(libRetroFolder)
+libRetroFolder := If libRetroFolder ? GetFullName(libRetroFolder) : emuPath
 overlay := GetFullName(overlay)
 videoShader := GetFullName(videoShader)
 
@@ -181,43 +182,25 @@ If ((ident = "LibRetro_LYNX") or (ident = "wsan")) {
 
 If (ident = "LibRetro_SGB" || If superGB = "true")	; if system or rom is set to use Super Game Boy
 {	superGB = true	; setting this just in case it's false and the system is Nintendo Super Game Boy
-	sgbRomPath := CheckFile(emuPath . "\system\Super Game Boy (World).sfc","Could not find the rom required for Super Game Boy support. Make sure the rom ""Super Game Boy (World).sfc"" is located in: " . emupath . "\system")
-	CheckFile(emuPath . "\system\sgb.boot.rom","Could not find the bios required for Super Game Boy support. Make sure the bios ""sgb.boot.rom"" is located in: " . emupath . "\system")
+	sgbRomPath := CheckFile(libRetroFolder . "\system\Super Game Boy (World).sfc","Could not find the rom required for Super Game Boy support. Make sure the rom ""Super Game Boy (World).sfc"" is located in: " . libRetroFolder . "\system")
+	CheckFile(libRetroFolder . "\system\sgb.boot.rom","Could not find the bios required for Super Game Boy support. Make sure the bios ""sgb.boot.rom"" is located in: " . libRetroFolder . "\system")
 	ident := "LibRetro_SGB"	; switching to Super Game Boy mode
 	retroArchSystem := "Nintendo Super Game Boy"
 }
 
 ; Find the cfg file to use
+globalRetroCfg := libRetroFolder . "\retroarch.cfg\"
 If (useCoreConfigs) {
-	Loop, %libRetroFolder%\*.cfg,,1 ; loop through all folder in emuPath
-	If (A_LoopFileName = %ident% . ".dll.cfg") {
-		sysRetroCfg := A_LoopFileLongPath
-		sysRetroCfgFolder := A_LoopFileDir
-		Break	; retroArchSystem configs are preferred, so break after one is found
-	} 
-	Else If (A_LoopFileName = "retroarch.cfg")
-		globalRetroCfg := A_LoopFileLongPath
+	retroCFGFile := libRetroFolder . "\config\" . %ident% . ".dll.cfg"
 } Else {
-Loop, %emuPath%\*.cfg,,1 ; loop through all folder in emuPath
-	If (A_LoopFileName = retroArchSystem . ".cfg") {
-		sysRetroCfg := A_LoopFileLongPath
-		Break	; retroArchSystem configs are preferred, so break after one is found
-	} Else If (A_LoopFileName = "retroarch.cfg")
-		globalRetroCfg := A_LoopFileLongPath
+	retroCFGFile := libRetroFolder . "\config\" . retroArchSystem . ".cfg"
 }
-retroCFGFile := If sysRetroCfg ? sysRetroCfg : globalRetroCfg
+IfNotExist %retroCFGFile%
+	retroCFGFile := CheckFile(globalRetroCfg, retroCFGFile . " nor " . globalRetroCfg . " can be found.")
 Log(MEmu . " is using " . retroCFGFile . " as it's config file.")
 
-
 ; Find the dll for this system
-Loop, %libRetroFolder%\*.dll,,1 ; loop through all folder in emuPath looking for the ident dll
-	If (A_LoopFileName = %ident% . ".dll") {
-		libDll := A_LoopFileLongPath
-		Break
-	}
-If !libDll
-	ScriptError("Your " . ident . " dll is set to " . %ident% . " but could not locate this file in any folder inside:`n" . libRetroFolder)
-
+libDll := CheckFile(libRetroFolder . "\cores\" . %ident% . ".dll", "Your " . ident . " dll is set to " . %ident% . " but could not locate this file in any folder inside:`n" . libRetroFolder)
 
 retroCFG := LoadProperties(retroCFGFile)	; load the config into memory
 If overlay
@@ -254,7 +237,7 @@ If RegExMatch(ident, "LibRetro_NFDS|LibRetro_SCD|LibRetro_TGCD|LibRetro_PCECD|Li
 
 If (RegExMatch(ident, "LibRetro_N64|LibRetro_NES|LibRetro_LYNX|LibRetro_PSX") || RegExMatch(ident, "LibRetro_NES") && (InStr(%ident%, "nestopia_libretro"))) {	; these systems will use an ini to store game specific settings
 	sysSettingsFile := CheckSysFile(modulePath . "\" . systemName . ".ini")	; create the ini if it does not exist
-	coreOptionsCFGFile := CheckFile(emuPath . "\retroarch-core-options.cfg", "Could not find retroarch-core-options.cfg in retroarch directory")
+	coreOptionsCFGFile := CheckFile(libRetroFolder . "\retroarch-core-options.cfg", "Could not find retroarch-core-options.cfg in retroarch directory")
 	coreOptionsCFG := LoadProperties(coreOptionsCFGFile)
 	If InStr(ident, "LibRetro_N64") {	; Nintendo 64
 		mupenGfx := IniReadCheck(sysSettingsFile, systemName . "|" . romName, "Mupen_Gfx_Plugin", "auto",,1)
@@ -297,9 +280,6 @@ If (RegExMatch(ident, "LibRetro_N64|LibRetro_NES|LibRetro_LYNX|LibRetro_PSX") ||
 			nestopiaBlargg := IniReadCheck(sysSettingsFile, "Nestopia" . "|" . romName, "Nestopia_Blargg_NTSC_Filter", "disabled",,1)
 			nestopiaPalette := IniReadCheck(sysSettingsFile, "Nestopia" . "|" . romName, "Nestopia_Palette", "canonical",,1)
 			nestopiaNoSprteLimit := IniReadCheck(sysSettingsFile, "Nestopia" . "|" . romName, "Nestopia_Remove_Sprites_Limit", "disabled",,1)
-
-			coreOptionsCFGFile := CheckFile(emuPath . "\retroarch-core-options.cfg", "Could not find retroarch-core-options.cfg in retroarch directory")
-			coreOptionsCFG := LoadProperties(coreOptionsCFGFile)
 			
 			WriteProperty(coreOptionsCFG, "nestopia_blargg_ntsc_filter", nestopiaBlargg, 1)
 			WriteProperty(coreOptionsCFG, "nestopia_palette", nestopiaPalette, 1)
@@ -307,9 +287,6 @@ If (RegExMatch(ident, "LibRetro_N64|LibRetro_NES|LibRetro_LYNX|LibRetro_PSX") ||
 		}
 	} Else If InStr(ident, "LibRetro_LYNX") {	; Atari Lynx
 		handyRotate := IniReadCheck(sysSettingsFile, systemName . "|" . romName, "Handy_Rotation", "None",,1)
-
-		coreOptionsCFGFile := CheckFile(emuPath . "\retroarch-core-options.cfg", "Could not find retroarch-core-options.cfg in retroarch directory")
-		coreOptionsCFG := LoadProperties(coreOptionsCFGFile)
 		
 		WriteProperty(coreOptionsCFG, "handy_rot", handyRotate, 1)
 	} Else If InStr(ident, "LibRetro_PSX") {	; Sony PlayStation
@@ -326,7 +303,7 @@ If (RegExMatch(ident, "LibRetro_N64|LibRetro_NES|LibRetro_LYNX|LibRetro_PSX") ||
 		psxMemcardHandling := IniReadCheck(sysSettingsFile, systemName . "|" . romName, "PSX_Memcard_Handling", """libretro""",,1)
 		psxDualshockAnalogToggle := IniReadCheck(sysSettingsFile, systemName . "|" . romName, "PSX_Dualshock_Analog_Toggle", """enabled""",,1)
 		
-		mednafenOptionsCFGFile := CheckFile(emuPath . "\config\" . LibRetro_PSX . ".dll.cfg", "Could not find core configuration file in config directory.")
+		mednafenOptionsCFGFile := CheckFile(libRetroFolder . "\config\" . LibRetro_PSX . ".dll.cfg", "Could not find core configuration file in config directory.")
 		mednafenOptionsCFG := LoadProperties(mednafenOptionsCFGFile)
 		
 		WriteProperty(mednafenOptionsCFG, "input_libretro_device_p1", p1ControllerType, 1)
@@ -469,8 +446,8 @@ If (enableNetworkPlay = "true") {
 BezelStart()
 
 fullscreen := If fullscreen = "true" ? " -f" : ""
-srmPath := emuPath . "\srm\" . retroArchSystem	; path for this system's srm files
-saveStatePath := emuPath . "\save\" . retroArchSystem	; path for this system's save state files
+srmPath := libRetroFolder . "\srm\" . retroArchSystem	; path for this system's srm files
+saveStatePath := libRetroFolder . "\save\" . retroArchSystem	; path for this system's save state files
 
 IfNotExist, %srmPath%
 	FileCreateDir, %srmPath% ; creating srm dir if it doesn't exist
