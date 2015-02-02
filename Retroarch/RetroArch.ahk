@@ -416,8 +416,6 @@
             Run(executable . " """ . (messIdent ? messIdent : "") . fullRomPath . """" . A_Space . fullscreen . " -c """ . retroCFGFile . """ -L """ . libDll . """ -s """ . srmPath . "\" . romName . ".srm"" -S """ . saveStatePath . "\" . romName . ".state""" . netCommand, emuPath, "Hide")
     } Else If (ident = "LibRetro_SGB" || If superGB = "true") { ; For some reason, the order of our command line matters in this particular case.
             Run(executable . " " . fullscreen . " -c """ . retroCFGFile . """ -L """ . libDll . """ -s """ . srmPath . "\" . romName . ".srm"" -S """ . saveStatePath . "\" . romName . ".state""" . fullRomPath . netCommand, emuPath, "Hide")
-    } Else If (ident = "LibRetro_LYNX" ) {
-            Run(executable . " " . fullRomPath . fullscreen . " -c """ . retroCFGFile . """ -L """ . libDll . """ -s """ . srmPath . "\" . romName . ".srm"" -S """ . saveStatePath . "\" . romName . ".state""", emuPath, "Hide")
     } Else {
             Run(executable . " " . fullRomPath . fullscreen . " -c """ . retroCFGFile . """ -L """ . libDll . """ -s """ . srmPath . "\" . romName . ".srm"" -S """ . saveStatePath . "\" . romName . ".state""" . netCommand, emuPath, "Hide")
     }
