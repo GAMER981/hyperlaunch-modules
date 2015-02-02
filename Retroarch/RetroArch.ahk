@@ -77,6 +77,10 @@
     customViewportX := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportX",,,1)
     customViewportY := IniReadCheck(settingsFile, systemName . "|" . romName, "CustomViewportY",,,1)
 	rotateScreen := IniReadCheck(settingsFile, systemName . "|" . romName, "Rotation",,,1)
+	cropOverscan := IniReadCheck(settingsFile, systemName . "|" . romName, "CropOverscan",,,1)
+	threadedVideo := IniReadCheck(settingsFile, systemName . "|" . romName, "ThreadedVideo",,,1)
+	vSync := IniReadCheck(settingsFile, systemName . "|" . romName, "VSync",,,1)
+	integerScale := IniReadCheck(settingsFile, systemName . "|" . romName, "IntegerScale",,,1)
      
     configFolder := GetFullName(configFolder)
     messRomPath := GetFullName(messRomPath)
@@ -145,6 +149,26 @@
             }
             If customViewportY {
                     WriteProperty(retroCFG, "custom_viewport_y", customViewportY,1,1)
+                    raCfgHasChanges := 1
+            }
+			If rotateScreen {
+                    WriteProperty(retroCFG, "video_rotation", rotateScreen,1,1)
+                    raCfgHasChanges := 1
+            }
+			If cropOverscan {
+                    WriteProperty(retroCFG, "video_crop_overscan", cropOverscan,1,1)
+                    raCfgHasChanges := 1
+            }
+			If threadedVideo {
+                    WriteProperty(retroCFG, "video_threaded", threadedVideo,1,1)
+                    raCfgHasChanges := 1
+            }
+			If vSync {
+                    WriteProperty(retroCFG, "video_vsync", vSync,1,1)
+                    raCfgHasChanges := 1
+            }
+			If integerScale {
+                    WriteProperty(retroCFG, "video_scale_integer", integerScale,1,1)
                     raCfgHasChanges := 1
             }
             If raCfgHasChanges
